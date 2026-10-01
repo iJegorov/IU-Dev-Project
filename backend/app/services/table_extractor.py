@@ -43,7 +43,7 @@ def remove_empty_rows_and_columns(
 
     table = table.copy()
 
-    # Convert whitespace-only strings into NaN.
+    # Convert whitespace-only strings into empty values.
     table = table.map(
         lambda value: (
             value.strip()
@@ -66,4 +66,8 @@ def remove_empty_rows_and_columns(
         how="all",
     )
 
-    return table.reset_index(drop=True)
+    # Reset both row and column indexes.
+    table = table.reset_index(drop=True)
+    table.columns = range(table.shape[1])
+
+    return table

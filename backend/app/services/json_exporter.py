@@ -11,17 +11,14 @@ def dataframe_to_records(
     Convert a DataFrame into a list of JSON-compatible records.
     """
 
-    # Replace pandas NaN with None.
-    table = table.where(
+    table = table.astype(object).where(
         pd.notna(table),
         None,
     )
 
-    records = table.to_dict(
+    return table.to_dict(
         orient="records"
     )
-
-    return records
 
 
 def export_table_to_json(
