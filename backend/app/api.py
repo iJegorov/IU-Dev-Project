@@ -1,3 +1,4 @@
+
 import json
 import re
 import shutil
@@ -6,8 +7,8 @@ import zipfile
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 from app.models.api_models import (
     AnalyzeResponse,
@@ -29,15 +30,18 @@ app = FastAPI(
     version="1.0.0",
 )
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
+        "http://127.0.0.1:5173",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/")
 def root():
@@ -68,7 +72,6 @@ async def analyze(
     validate_excel_file(file)
 
     with tempfile.TemporaryDirectory() as temp_directory:
-
         input_path = (
             Path(temp_directory)
             / safe_filename(file.filename)
@@ -172,10 +175,6 @@ async def convert(
             zip_path,
         )
 
-        # We deliberately don't delete temp_directory here.
-        # FileResponse needs the ZIP to remain available.
-        # The file will be cleaned up after the response is sent.
-
         from starlette.background import BackgroundTask
 
         cleanup_task = BackgroundTask(
@@ -259,7 +258,6 @@ async def save_uploaded_file(
         destination,
         "wb",
     ) as output_file:
-
         while chunk := await file.read(1024 * 1024):
             output_file.write(chunk)
 
