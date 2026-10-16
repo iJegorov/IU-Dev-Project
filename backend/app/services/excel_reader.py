@@ -9,9 +9,6 @@ def read_excel_file(
 ) -> pd.DataFrame:
     """
     Read an Excel worksheet into a pandas DataFrame.
-
-    header=None is intentional because we don't know the table headers
-    before detecting the tables.
     """
 
     filepath = Path(filepath)

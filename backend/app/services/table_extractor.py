@@ -11,9 +11,6 @@ def extract_table(
 ) -> pd.DataFrame:
     """
     Extract a rectangular region from a worksheet.
-
-    TableRange uses 1-based Excel coordinates.
-    pandas uses 0-based coordinates, so conversion happens here.
     """
 
     start_row = table_range.start_row - 1

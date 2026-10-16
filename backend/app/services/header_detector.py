@@ -54,11 +54,6 @@ def make_column_names_unique(
 ) -> list[str]:
     """
     Make duplicate column names unique.
-
-    Example:
-        ["id", "name", "id"]
-        ->
-        ["id", "name", "id.1"]
     """
 
     seen = {}

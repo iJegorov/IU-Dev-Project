@@ -31,7 +31,7 @@ export async function analyzeWorkbook(
         message = errorData.detail;
       }
     } catch {
-      // Keep the default error message.
+
     }
 
     throw new Error(message);

@@ -62,13 +62,11 @@ function App() {
     setLoading(true);
 
     try {
-      // Parse the workbook for the spreadsheet preview
       const parsedSheet =
         await parseExcelFile(selectedFile);
 
       setSheet(parsedSheet);
 
-      // Immediately analyze the workbook
       const response =
         await analyzeWorkbook(selectedFile);
 
